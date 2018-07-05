@@ -5,11 +5,13 @@ import unittest
 
 import rospy
 
+from rqt_robot_dashboard.widgets import MenuDashWidget
+
 from kobuki_dashboard.led_widget import LedWidget
 from kobuki_dashboard.motor_widget import MotorWidget
 
 ################################################################################
-# ROS Python Overrides
+# Necessary Monkey Patching
 ################################################################################
 
 class TestPublisher(object):
@@ -18,6 +20,21 @@ class TestPublisher(object):
             raise ValueError("Queue size should not be None.")
 
 rospy.Publisher = TestPublisher
+
+def mock_init(self, topic, icons=None):
+    pass
+
+MenuDashWidget.__init__ = mock_init
+
+def mock_setFixedSize(self, qsize):
+    pass
+
+MenuDashWidget.setFixedSize = mock_setFixedSize
+
+def mock_add_action(self, name, action):
+    pass
+
+MenuDashWidget.add_action = mock_add_action
 
 
 ################################################################################
