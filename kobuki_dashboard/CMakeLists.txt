@@ -14,3 +14,5 @@ install(PROGRAMS scripts/kobuki_dashboard
 
 install(DIRECTORY plugins
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+catkin_add_nosetests(test/test_queue_size.py)
