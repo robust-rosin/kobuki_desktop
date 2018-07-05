@@ -26,13 +26,13 @@ rospy.Publisher = TestPublisher
 
 ## A sample python unit test
 class TestQueueSize(unittest.TestCase):
-    @unittest.expectedFailure
     def test_led_widget_pub_queue_size(self):
         widget = LedWidget("/mobile_base/commands/led1")
+        self.assertTrue(True)
 
-    @unittest.expectedFailure
     def test_motor_widget_pub_queue_size(self):
         widget = MotorWidget("/mobile_base/commands/motor_power")
+        self.assertTrue(True)
 
 
 if __name__ == "__main__":
