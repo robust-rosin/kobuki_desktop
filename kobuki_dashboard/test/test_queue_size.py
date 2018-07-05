@@ -5,13 +5,13 @@ import unittest
 
 import rospy
 
-from python_qt_binding import QtGui
+from kobuki_msgs.msg import Led, MotorPower
 
 from kobuki_dashboard.led_widget import LedWidget
 from kobuki_dashboard.motor_widget import MotorWidget
 
 ################################################################################
-# Necessary Monkey Patching
+# Necessary Overrides
 ################################################################################
 
 class TestPublisher(object):
@@ -21,6 +21,16 @@ class TestPublisher(object):
 
 rospy.Publisher = TestPublisher
 
+def mock_led_init(self, topic):
+    self._pub = rospy.Publisher(topic, Led)
+
+LedWidget.__init__ = mock_led_init
+
+def mock_motor_init(self, topic):
+    self._pub = rospy.Publisher(topic, MotorPower)
+
+MotorWidget.__init__ = mock_motor_init
+
 
 ################################################################################
 # Unit Test
@@ -28,10 +38,6 @@ rospy.Publisher = TestPublisher
 
 ## A sample python unit test
 class TestQueueSize(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.app = QtGui.QApplication(sys.argv)
-
     def test_led_widget_pub_queue_size(self):
         widget = LedWidget("/mobile_base/commands/led1")
         self.assertTrue(True)
