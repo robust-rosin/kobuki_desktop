@@ -5,7 +5,7 @@ import unittest
 
 import rospy
 
-from rqt_robot_dashboard.widgets import MenuDashWidget
+from python_qt_binding import QtGui
 
 from kobuki_dashboard.led_widget import LedWidget
 from kobuki_dashboard.motor_widget import MotorWidget
@@ -21,21 +21,6 @@ class TestPublisher(object):
 
 rospy.Publisher = TestPublisher
 
-def mock_init(self, topic, icons=None):
-    pass
-
-MenuDashWidget.__init__ = mock_init
-
-def mock_setFixedSize(self, qsize):
-    pass
-
-MenuDashWidget.setFixedSize = mock_setFixedSize
-
-def mock_add_action(self, name, action):
-    pass
-
-MenuDashWidget.add_action = mock_add_action
-
 
 ################################################################################
 # Unit Test
@@ -43,6 +28,10 @@ MenuDashWidget.add_action = mock_add_action
 
 ## A sample python unit test
 class TestQueueSize(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.app = QtGui.QApplication(sys.argv)
+
     def test_led_widget_pub_queue_size(self):
         widget = LedWidget("/mobile_base/commands/led1")
         self.assertTrue(True)
