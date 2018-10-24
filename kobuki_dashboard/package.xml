@@ -23,6 +23,8 @@
   <run_depend>rospy</run_depend>
   <run_depend>rqt_robot_dashboard</run_depend>
   <run_depend>kobuki_msgs</run_depend>
+
+  <test_depend>rosunit</test_depend>
   
   <export>
     <rqt_gui plugin="${prefix}/plugins/plugin.xml"/>
